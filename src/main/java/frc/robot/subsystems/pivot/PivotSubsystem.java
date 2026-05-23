@@ -1,5 +1,6 @@
 package frc.robot.subsystems.pivot;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
@@ -29,5 +30,10 @@ public class PivotSubsystem extends SubsystemBase {
 
     public void stop() {
         io.stop();
+    }
+
+    public Command moveToAngle(double radians) {
+        return run(() -> setAngle(radians))
+                .until(() -> Math.abs(getAngle() - radians) < 0.05);
     }
 }

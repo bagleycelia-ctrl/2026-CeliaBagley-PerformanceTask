@@ -1,5 +1,6 @@
 package frc.robot.subsystems.elevator;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
@@ -34,4 +35,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void stop() {
         io.stop();
     }
+
+    public Command moveToHeight(double meters) {
+    return run(() -> setHeight(meters))
+            .until(() -> Math.abs(getHeight() - meters) < 0.05);
+    }
+
+    public Command stow() {
+        return moveToHeight(0.0);
+}
 }
